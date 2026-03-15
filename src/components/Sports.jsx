@@ -9,6 +9,7 @@ export default function Sports() {
   const titleRef = useRef(null);
   const badmintonCardRef = useRef(null);
   const tennisCardRef = useRef(null);
+  const cyclingCardRef = useRef(null);
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -29,6 +30,10 @@ export default function Sports() {
       { x: 50, opacity: 0 },
       { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
       "-=0.6"
+    ).fromTo(cyclingCardRef.current,
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+      "-=0.6"
     );
 
     return () => tl.kill();
@@ -41,7 +46,7 @@ export default function Sports() {
           IN MOTION
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 w-full">
           {/* Badminton Card - Dark, Confident */}
           <div 
             ref={badmintonCardRef}
@@ -49,8 +54,8 @@ export default function Sports() {
             data-interactive="true"
           >
             {/* Badminton CSS Animation bg */}
-            <div className="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden opacity-30 mix-blend-screen">
-              <div className="absolute top-[60%] left-[-10%] w-0 h-0 border-l-[10px] border-r-[10px] border-b-[20px] border-transparent border-b-[#ffffff]/40 rounded-full animate-shuttle blur-[1px] shadow-[0_0_15px_#ffffff]" />
+            <div className="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden opacity-40 mix-blend-screen">
+              <div className="absolute top-[20%] right-[15%] w-0 h-0 border-l-[12px] border-r-[12px] border-b-[24px] border-transparent border-b-[#c8f135]/60 rounded-full animate-subtle-float blur-[1px] shadow-[0_0_20px_#c8f135]" />
             </div>
 
             <div className="relative z-10 h-full flex flex-col">
@@ -81,8 +86,8 @@ export default function Sports() {
             data-interactive="true"
           >
             {/* Tennis CSS Animation bg */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden opacity-40">
-              <div className="absolute top-[80%] left-[-10%] w-8 h-8 bg-[#c8f135] rounded-full animate-tennis-bounce blur-[1px] shadow-[0_0_15px_rgba(200,241,53,0.8)]" />
+            <div className="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden opacity-60">
+              <div className="absolute top-[25%] right-[20%] w-10 h-10 bg-[#c8f135] rounded-full animate-subtle-bounce blur-[1px] shadow-[0_10px_20px_rgba(200,241,53,0.6)]" />
             </div>
 
             <div className="relative z-10 h-full flex flex-col">
@@ -100,33 +105,76 @@ export default function Sports() {
               </div>
             </div>
           </div>
+          {/* Cycling Card - Sleek, Dynamic */}
+          <div 
+            ref={cyclingCardRef}
+            className="relative rounded-[2rem] bg-[#0d0d0d] p-10 md:p-14 overflow-hidden group shadow-2xl transition-transform duration-500 hover:-translate-y-2 lg:col-span-1"
+            data-interactive="true"
+          >
+            {/* Cycling CSS Animation bg */}
+            <div className="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden opacity-10 mix-blend-screen">
+              <div className="absolute top-[20%] right-[10%] w-[120px] h-[120px] border-[2px] border-dashed border-[#00f0ff] rounded-[50%] animate-wheel-spin shadow-[0_0_15px_rgba(0,240,255,0.3)]" />
+              <div className="absolute top-[40%] right-[-5%] w-[160px] h-[160px] border-[2px] border-dotted border-[#00f0ff] rounded-[50%] animate-wheel-spin-reverse shadow-[0_0_15px_rgba(0,240,255,0.2)]" />
+            </div>
+
+            <div className="relative z-10 h-full flex flex-col">
+              <h3 className="text-5xl md:text-7xl font-display mb-2 text-white">Cycling</h3>
+              <p className="text-[#00f0ff] font-subscript text-sm uppercase tracking-[0.2em] mb-12 font-bold">Rockrider ST900</p>
+              
+              <div className="mt-auto space-y-6">
+                <div className="flex justify-between items-center border-b border-[#333333] pb-4">
+                  <span className="text-[#888888] text-sm uppercase tracking-wider font-subscript">Drivetrain</span>
+                  <span className="text-white font-subscript font-medium uppercase tracking-widest text-sm text-right">SRAM Kit</span>
+                </div>
+                <div className="flex justify-between items-center border-b border-[#333333] pb-4">
+                  <span className="text-[#888888] text-sm uppercase tracking-wider font-subscript">Pace</span>
+                  <span className="text-white font-subscript font-medium uppercase tracking-widest text-sm text-right">Endurance</span>
+                </div>
+                <div className="flex justify-between items-center pb-2">
+                  <span className="text-[#888888] text-sm uppercase tracking-wider font-subscript">Terrain</span>
+                  <span className="text-[#00f0ff] font-subscript font-bold uppercase tracking-widest text-sm text-right">Trails & Roads</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <style jsx="true">{`
-        @keyframes shuttle {
-          0% { transform: translate(0, 0) scale(1) rotate(45deg); opacity: 0; }
-          10% { opacity: 1; }
-          40% { transform: translate(150px, -200px) scale(0.6) rotate(100deg); }
-          60% { transform: translate(300px, -100px) scale(0.4) rotate(140deg); }
-          90% { opacity: 1; }
-          100% { transform: translate(450px, 100px) scale(1) rotate(180deg); opacity: 0; }
+        @keyframes subtle-float {
+          0%, 100% { transform: translateY(0) rotate(15deg); }
+          50% { transform: translateY(-15px) rotate(0deg); }
         }
         
-        @keyframes tennis-bounce {
-          0% { transform: translate(0, 0); }
-          25% { transform: translate(100px, -150px) scaleY(1.1); }
-          50% { transform: translate(200px, 0) scaleY(0.9); }
-          75% { transform: translate(300px, -80px) scaleY(1.05); }
-          100% { transform: translate(400px, 0) scaleY(0.95); }
+        @keyframes subtle-bounce {
+          0%, 100% { transform: translateY(0) scaleY(1); }
+          50% { transform: translateY(-20px) scaleY(1.05); }
         }
 
-        .animate-shuttle {
-          animation: shuttle 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+        @keyframes wheel-spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
 
-        .animate-tennis-bounce {
-          animation: tennis-bounce 3s cubic-bezier(0.3, 0.1, 0.3, 1) infinite linear;
+        @keyframes wheel-spin-reverse {
+          0% { transform: rotate(360deg); }
+          100% { transform: rotate(0deg); }
+        }
+
+        .animate-subtle-float {
+          animation: subtle-float 4s ease-in-out infinite;
+        }
+
+        .animate-subtle-bounce {
+          animation: subtle-bounce 3s ease-in-out infinite;
+        }
+
+        .animate-wheel-spin {
+          animation: wheel-spin 15s linear infinite;
+        }
+
+        .animate-wheel-spin-reverse {
+          animation: wheel-spin-reverse 20s linear infinite;
         }
       `}</style>
     </section>

@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ImageReveal({ src, alt, className, delay = 0 }) {
+export default function ImageReveal({ src, alt, className }) {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
 

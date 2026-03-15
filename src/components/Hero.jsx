@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 
 const sentence = "musician. maker. always moving.";
@@ -135,8 +136,8 @@ function InteractiveParticles() {
     window.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('deviceorientation', handleDeviceOrientation);
 
-    class Particle {
-      constructor(x, y) {
+    
+    function Particle(x, y) {
         this.x = x;
         this.y = y;
         this.baseX = x;
@@ -156,7 +157,7 @@ function InteractiveParticles() {
         this.floatSpeed = 0.001 + Math.random() * 0.002;
       }
 
-      draw() {
+    Particle.prototype.draw = function() {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
@@ -166,9 +167,9 @@ function InteractiveParticles() {
         ctx.roundRect(-this.width/2, -this.height/2, this.width, this.height, 2);
         ctx.fill();
         ctx.restore();
-      }
+    };
 
-      update(time) {
+    Particle.prototype.update = function(time) {
         // Subtle ambient float (Lissajous curve variant)
         const floatX = Math.sin(time * this.floatSpeed + this.floatOffset) * 15;
         const floatY = Math.cos(time * this.floatSpeed + this.floatOffset) * 15;
@@ -215,8 +216,7 @@ function InteractiveParticles() {
         this.angle += 0.005;
 
         this.draw();
-      }
-    }
+    };
 
     const init = () => {
       particles = [];

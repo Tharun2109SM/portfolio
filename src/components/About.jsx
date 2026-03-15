@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -60,21 +61,23 @@ export default function About() {
               I am someone who creates — whether it's through lines of code, chords on a keyboard, or motion on a court.
             </p>
             <p>
-              When I'm not building digital experiences, you'll find me watching <strong className="font-bold">F1</strong>, smashing elegantly on the <strong className="font-bold">badminton</strong> court, or picking up a tennis racket to learn something new. Precise in practice; open to improvisation.
+              When I'm not building digital experiences, you'll find me watching <strong className="font-bold">F1</strong>, smashing elegantly on the <strong className="font-bold">badminton</strong> court, <strong className="font-bold">cycling</strong>, or picking up a tennis racket to learn something new. Precise in practice; open to improvisation.
             </p>
           </div>
           
-          <div className="flex flex-wrap gap-4">
-            {['🎹 Musician', '🏸 Athlete', '🔨 Maker'].map((chip, i) => (
-              <div 
-                key={i}
-                ref={el => chipsRef.current[i] = el}
-                className="px-6 py-3 rounded-full border-2 border-[#0d0d0d] text-[#0d0d0d] font-display text-xl uppercase tracking-widest hover:bg-[#c8f135] hover:border-[#c8f135] transition-colors duration-300"
-                data-interactive="true"
-              >
-                {chip}
+          <div className="flex justify-start mt-4">
+            <div 
+              ref={el => chipsRef.current[0] = el}
+              className="group relative flex items-center gap-4"
+              data-interactive="true"
+            >
+              <div className="w-[3.5rem] h-[3.5rem] rounded-full bg-[#111] flex items-center justify-center text-white font-display text-2xl tracking-tighter shadow-lg group-hover:bg-[#c8f135] group-hover:text-[#111] transition-colors duration-300">
+                TH.
               </div>
-            ))}
+              <div className="font-display text-4xl uppercase tracking-tighter text-[#111]">
+                Tharun S M<span className="text-[#c8f135]">.</span>
+              </div>
+            </div>
           </div>
         </div>
 
