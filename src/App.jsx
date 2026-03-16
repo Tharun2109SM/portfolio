@@ -5,6 +5,7 @@ import About from './components/About'
 import Music from './components/Music'
 import Sports from './components/Sports'
 import Gig from './components/Gig'
+import Gear from './components/Gear'
 import Footer from './components/Footer'
 import QuoteScreen from './components/QuoteScreen'
 import ImageReveal from './components/ImageReveal'
@@ -35,6 +36,7 @@ function App() {
         <QuoteScreen text="jack of all trades | master of none | but oftentimes better | than master of one" />
         
         <Gig />
+        <Gear />
         
         {/* Full screen piano reveal transition into Music */}
         <ImageReveal 

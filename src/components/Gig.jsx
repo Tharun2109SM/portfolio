@@ -9,7 +9,6 @@ import ipad1 from '../assets/ipad-air-back-clean.png';
 import ipad2 from '../assets/ipad-image-2-clean.png';
 import iphoneFront from '../assets/iphone-16-front-clean.png';
 import iphoneBack from '../assets/iphone-16-back-clean.png';
-import iphoneCombined from '../assets/iphone-16-combined.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
