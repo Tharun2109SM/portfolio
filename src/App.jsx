@@ -12,20 +12,10 @@ import ImageReveal from './components/ImageReveal'
 
 function App() {
   return (
-    <div className="bg-[#fafaf8] min-h-screen text-[#0d0d0d] font-sans selection:bg-[#c8f135] selection:text-black">
+    <div className="bg-black min-h-screen text-[#f5f2ea] font-sans selection:bg-[#c8f135] selection:text-black">
       <CustomCursor />
       <MarqueeBackground />
 
-      {/* Noise Texture Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-40 mix-blend-overlay">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-          <filter id="noise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noise)" />
-        </svg>
-      </div>
-      
       <main className="relative z-10 w-full overflow-x-hidden">
         <Hero />
         

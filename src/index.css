@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-dark-bg: #fafaf8;
+  --color-dark-bg: #000;
   --color-amber-accent: #c8f135;
   --color-off-white: #0d0d0d;
   --font-sans: 'Cormorant Garamond', ui-serif, Georgia, serif;
@@ -12,7 +12,7 @@
 
 @layer base {
   body {
-    background-color: var(--color-dark-bg);
+    background-color: #000;
     color: var(--color-off-white);
     font-family: var(--font-sans);
     cursor: none;

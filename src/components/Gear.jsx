@@ -5,7 +5,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import bikeSide from '../assets/bike-side-transparent.png';
 
-
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Gear() {
@@ -30,13 +29,13 @@ export default function Gear() {
       x: 0,
       transition: { staggerChildren: 0.1, delayChildren: 0.3, duration: 0.8, ease: [0.25, 0.1, 0.1, 1.0] }
     },
-    exit: { opacity: 0, x: 20, transition: { duration: 0.4, ease: "easeOut" } }
+    exit: { opacity: 0, transition: { duration: 0.2, ease: "easeInOut" } }
   };
 
   const itemAnim = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.1, 1.0] } },
-    exit: { opacity: 0, y: 10, transition: { duration: 0.4 } }
+    exit: { opacity: 0, transition: { duration: 0.1 } }
   };
 
   const handleDeviceClick = (device) => {
@@ -55,10 +54,16 @@ export default function Gear() {
       </div>
 
       <div className="w-full max-w-[90rem] flex justify-center items-center px-6 md:px-12 relative z-10 mx-auto">
-        <motion.div layout className={`w-full flex flex-col lg:flex-row items-center transition-all duration-700 mt-16 md:mt-0 ${openDevice === 'bike' ? 'lg:justify-center lg:gap-16 xl:gap-24' : 'lg:justify-center'}`}>
+        <motion.div 
+          layout 
+          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+          className={`w-full flex flex-col lg:flex-row items-center transition-all duration-700 mt-16 md:mt-0 ${openDevice === 'bike' ? 'lg:justify-center lg:gap-16 xl:gap-24' : 'lg:justify-center'}`}
+        >
           
           <motion.div
-            className={`relative cursor-pointer group z-40 flex-shrink-0 transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.1,1.0)] ${openDevice === 'bike' ? 'w-[45rem] h-[30rem] lg:w-[48rem] lg:h-[35rem]' : 'w-[45rem] h-[30rem] lg:w-[60rem] lg:h-[45rem]'}`}
+            layout
+            transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+            className={`relative cursor-pointer group z-40 flex-shrink-0 transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.1,1.0)] ${openDevice === 'bike' ? 'w-[28rem] h-[18rem] lg:w-[34rem] lg:h-[22rem]' : 'w-[36rem] h-[22rem] lg:w-[45rem] lg:h-[31rem]'}`}
             animate={{ scale: isMobile ? (openDevice === 'bike' ? 0.8 : 1) : 1 }}
             onClick={() => handleDeviceClick('bike')}
             data-interactive="true"
@@ -68,7 +73,7 @@ export default function Gear() {
               transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.5 }}
               className="relative w-full h-full"
             >
-              <img src={bikeSide} alt="Rockrider ST900" className="absolute inset-0 w-full h-full object-contain pointer-events-none drop-shadow-[0_15px_35px_rgba(0,0,0,0.4)] mix-blend-darken" />
+              <img src={bikeSide} alt="Rockrider ST900" className="absolute inset-0 w-full h-full object-contain pointer-events-none drop-shadow-md opacity-90" />
             </motion.div>
           </motion.div>
 

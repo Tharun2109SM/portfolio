@@ -63,13 +63,40 @@ export default function Gig() {
       opacity: 1, x: 0,
       transition: { staggerChildren: 0.08, delayChildren: 0.1, ease: "easeOut", duration: 0.5 }
     },
-    exit: { opacity: 0, x: 30, transition: { duration: 0.3 } }
+    exit: { opacity: 0, transition: { duration: 0.2, ease: "easeInOut" } }
   };
 
   const itemAnim = {
     hidden: { opacity: 0, y: 15 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-    exit: { opacity: 0, y: 0 }
+    exit: { opacity: 0, transition: { duration: 0.1 } }
+  };
+
+  const overlayGradient = {
+    mac: 'from-[#f6f4f2]/70 via-[#c8f135]/50 to-transparent',
+    ipad: 'from-[#b5c9ff]/60 via-[#c8f135]/45 to-transparent',
+    iphone: 'from-[#05070c]/70 via-[#c8f135]/50 to-transparent'
+  };
+
+  const highlightPositions = {
+    mac: 'left-[6%] top-[35%]',
+    ipad: 'right-[12%] top-[28%]',
+    iphone: 'left-[42%] top-[18%]'
+  };
+
+  const overlayContainer = {
+    hidden: { opacity: 0, scale: 0.96 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.9, ease: [0.32, 1, 0.2, 1] } }
+  };
+
+  const overlayLayer = {
+    hidden: { opacity: 0, scale: 1.02 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 1.1, ease: [0.25, 1, 0.5, 1] } }
+  };
+
+  const highlightLayer = {
+    hidden: { opacity: 0, scale: 0.7 },
+    visible: { opacity: 0.85, scale: 1, transition: { duration: 1.2, ease: [0.32, 1.2, 0.35, 1] } }
   };
 
   const handleDeviceClick = (device) => {
@@ -80,6 +107,32 @@ export default function Gig() {
     // Height is 100vh so when it pins, it takes over the whole screen perfectly.
     <section ref={sectionRef} id="gig" className="w-full h-screen relative z-20 bg-[#fafaf8] overflow-hidden flex flex-col justify-center">
       
+      <AnimatePresence>
+        {openDevice && (
+          <motion.div
+            key={`device-overlay-${openDevice}`}
+            className="absolute inset-0 pointer-events-none z-10"
+            variants={overlayContainer}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
+            <motion.div
+              className={`absolute inset-0 bg-gradient-to-r ${overlayGradient[openDevice] ?? overlayGradient.mac} mix-blend-screen`}
+              variants={overlayLayer}
+            />
+            <motion.div
+              className={`absolute h-[38%] w-[72%] ${highlightPositions[openDevice] ?? highlightPositions.mac} rounded-full bg-white/40 blur-[26px] shadow-[0_45px_140px_rgba(200,241,53,0.3)]`}
+              variants={highlightLayer}
+            />
+            <motion.div
+              className="absolute inset-0 bg-[radial-gradient(circle_at_top,#ffffff1a,transparent_45%)]"
+              variants={overlayLayer}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* HUD Layer - Always visible floating above the swipe */}
       <div className="absolute top-10 left-6 md:left-12 z-50 pointer-events-none w-full max-w-[90rem]">
         <h3 className="text-[#888888] font-subscript tracking-widest uppercase text-sm mb-4 font-bold">
@@ -99,10 +152,15 @@ export default function Gig() {
             
           {/* === MACBOOK SECTION (100vw) === */}
           <div className="w-screen h-full flex justify-center items-center px-6 md:px-12 relative flex-shrink-0">
-            <motion.div layout className={`w-full max-w-[90rem] flex flex-col lg:flex-row items-center gap-12 lg:gap-20 transition-all duration-700 mt-16 md:mt-0 ${openDevice === 'mac' ? 'lg:justify-center lg:gap-32 xl:gap-40' : 'lg:justify-center'}`}>
+            <motion.div 
+              layout 
+              transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+              className={`w-full max-w-[90rem] flex flex-col lg:flex-row items-center gap-12 lg:gap-20 transition-all duration-700 mt-16 md:mt-0 ${openDevice === 'mac' ? 'lg:justify-center lg:gap-32 xl:gap-40' : 'lg:justify-center'}`}
+            >
               
               <motion.div
                 layout
+                transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
                 className={`relative cursor-pointer group z-40 flex-shrink-0 transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.1,1.0)] ${openDevice === 'mac' ? 'w-[20rem] h-[12.5rem] lg:w-[35rem] lg:h-[22rem]' : 'w-[28rem] h-[17.5rem] lg:w-[48rem] lg:h-[30rem]'}`}
                 style={{ perspective: "1500px" }}
                 animate={{ scale: isMobile ? (openDevice === 'mac' ? 0.8 : 1) : 1 }}
@@ -184,10 +242,15 @@ export default function Gig() {
 
           {/* === IPAD SECTION (100vw) === */}
           <div className="w-screen h-full flex justify-center items-center px-6 md:px-12 relative flex-shrink-0">
-            <motion.div layout className={`w-full max-w-[90rem] flex flex-col lg:flex-row items-center gap-12 lg:gap-20 transition-all duration-700 mt-16 md:mt-0 ${openDevice === 'ipad' ? 'lg:justify-center lg:gap-32 xl:gap-40' : 'lg:justify-center'}`}>
+            <motion.div 
+              layout 
+              transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+              className={`w-full max-w-[90rem] flex flex-col lg:flex-row items-center gap-12 lg:gap-20 transition-all duration-700 mt-16 md:mt-0 ${openDevice === 'ipad' ? 'lg:justify-center lg:gap-32 xl:gap-40' : 'lg:justify-center'}`}
+            >
               
               <motion.div
                 layout
+                transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
                 className={`relative cursor-pointer group z-40 flex-shrink-0 transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.1,1.0)] ${openDevice === 'ipad' ? 'w-[24rem] h-[32rem] lg:w-[45rem] lg:h-[60rem]' : 'w-[21rem] h-[28rem] lg:w-[36rem] lg:h-[48rem]'}`}
                 style={{ perspective: "1500px" }}
                 animate={{ scale: isMobile ? (openDevice === 'ipad' ? 0.8 : 1) : 1 }}
@@ -256,9 +319,15 @@ export default function Gig() {
 
           {/* === IPHONE SECTION (100vw) === */}
           <div className="w-screen h-full flex justify-center items-center px-6 md:px-12 relative flex-shrink-0">
-            <motion.div layout className={`w-full max-w-[100vw] flex flex-col lg:flex-row items-center transition-all duration-700 mt-16 md:mt-0 ${openDevice === 'iphone' ? 'lg:justify-end lg:pr-[10vw] lg:gap-16 xl:gap-20' : 'lg:justify-center'}`}>
+            <motion.div 
+              layout 
+              transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+              className={`w-full max-w-[100vw] flex flex-col lg:flex-row items-center transition-all duration-700 mt-16 md:mt-0 ${openDevice === 'iphone' ? 'lg:justify-end lg:pr-[10vw] lg:gap-16 xl:gap-20' : 'lg:justify-center'}`}
+            >
               
               <motion.div
+                layout
+                transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
                 className={`relative cursor-pointer group z-40 flex-shrink-0 transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.1,1.0)] ${openDevice === 'iphone' ? 'w-[35rem] h-[75rem] lg:w-[48rem] lg:h-[103rem]' : 'w-[45rem] h-[97rem] lg:w-[70rem] lg:h-[151rem]'}`}
                 animate={{ scale: isMobile ? (openDevice === 'iphone' ? 0.8 : 1) : 1 }}
                 onClick={() => handleDeviceClick('iphone')}
